@@ -1,0 +1,5 @@
+"0"," onehot(try, stringsAsFactors = FALSE, addNA = FALSE)
+"
+"2","Error in onehot(try, stringsAsFactors = FALSE, addNA = FALSE) : 
+  inherits(data, ""data.frame"") is not TRUE
+"

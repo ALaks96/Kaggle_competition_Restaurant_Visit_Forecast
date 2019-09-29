@@ -1,0 +1,3 @@
+"0","hpg_reserve <- read.csv(""data/hpg_reserve.csv"")"
+"0","hpg_reserve %>% "
+"0","  select(hpg_store_id,reserve_visitors) # I'm only intersted in these two, so it will be easier to work with a smaller data set."

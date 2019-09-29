@@ -1,0 +1,7 @@
+"0"," hpg_reserve %>%
+  mutate(visit_date = date(visit_datetime)) %>%
+  mutate(reserve_date = date(reserve_datetime))
+"
+"2","Error in mutate_impl(.data, dots) : 
+  Evaluation error: argument inutilisé (visit_datetime).
+"

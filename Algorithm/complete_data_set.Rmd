@@ -1,0 +1,172 @@
+---
+title: "Algorithm"
+author: "Rick SCHNEIDER"
+date: "November 26, 2018"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
+Load all the data in
+```{r}
+air_reserve <- read.csv("data/air_reserve.csv")                   #check
+air_store_info <- read.csv("data/air_store_info.csv")             #check
+air_visit_data <- read.csv("data/air_visit_data.csv")             
+data_info <- read.csv("data/date_info.csv")                       #check
+hpg_reserve <- read.csv("data/hpg_reserve.csv")                   #check
+hpg_store_info <- read.csv("data/hpg_store_info.csv")             #check
+store_id_relation <- read.csv("data/store_id_relation.csv")       #check
+sample_submission <- read.csv("data/sample_submission.csv")
+```
+
+```{r}
+glimpse(air_reserve)
+glimpse(hpg_reserve)
+glimpse(store_id_relation)
+glimpse(sample_submission)
+```
+
+First, we are going to add the hpg_reserve (with changed hpg ids to air ids) to the air_reserve, and call the data set global:
+```{r}
+
+#rename to id:
+air_reserve <- air_reserve %>% rename(id = air_store_id)
+hpg_reserve <- hpg_reserve %>% rename(id = hpg_store_id)
+
+
+#paste them together:
+reserve <- rbind(air_reserve, hpg_reserve)
+
+```
+
+Now, we need to add air_store_info and hpg_store_info.
+
+```{r}
+glimpse(air_store_info)
+glimpse(hpg_store_info)
+```
+
+```{r}
+#rename to id:
+air_store_info <- air_store_info %>% 
+                    rename(id = air_store_id,
+                           genre_name = air_genre_name,
+                           area_name = air_area_name)
+hpg_store_info <- hpg_store_info %>% 
+                    rename(id = hpg_store_id,
+                           genre_name = hpg_genre_name,
+                           area_name = hpg_area_name)
+
+#paste them together:
+info <- rbind(air_store_info, hpg_store_info)
+
+nrow(info)
+nrow(reserve)
+
+info %>% filter(id %in% reserve$id) %>% summarize(n())
+reserve %>% filter(id %in% info$id) %>% summarize(n())
+```
+At this point, we have not generated NA's yet (which is normal, as we have not merged the data sets, and the csv files that we got have no missing values).
+
+Now we need to merge reserve and info on id:
+
+```{r}
+#final <- full_join(reserve,info,by="id")
+final <- inner_join(reserve,info,by="id")
+
+nrow(final)
+
+colSums(is.na.data.frame(final))
+
+#View(final)
+```
+We do an inner join, as a full_join will create a huge chunk of missing data, and will create a data set that will not be helpful for the prediction. We would need to adapt a whole stretegy to those NA's, and imputng them would not make much sense, as we do not have enough data to predict/impute them well.
+
+
+Data info:
+
+```{r}
+glimpse(final)
+glimpse(data_info)
+```
+ 
+Join it on the calender date:
+```{r}
+data_info <- data_info %>% 
+                    rename(visit_date= calendar_date)
+
+final <-final %>% 
+                separate(visit_datetime, into = c('visit_date', 'visit_time'), sep = 10) %>% 
+                separate(reserve_datetime, into = c('reserve_date', 'reserve_time'), sep = 10)
+
+#join, as we do not want to loose data here!
+final <- full_join(final,data_info,by="visit_date")
+
+#rename
+final <- final %>% 
+            rename(day_of_the_week_visit = day_of_week,
+                   holiday_flg_visit = holiday_flg)
+
+#for reserve:
+data_info <- data_info %>% 
+                    rename(reserve_date= visit_date)
+final <- full_join(final,data_info,by="reserve_date")
+#rename
+final <- final %>% 
+            rename(day_of_the_week_reserve= day_of_week,
+                   holiday_flg_reserve = holiday_flg)
+
+#View(final)
+
+```
+
+This last operation created 39 rows with only NA's!, they only contain dates, and should therefore be deleted.
+```{r}
+colSums(is.na.data.frame(final))
+nrow(final)                          #963.725
+final <- drop_na(final)              #963.686
+nrow(final)
+colSums(is.na.data.frame(final))
+```
+
+
+
+
+```{r}
+glimpse(air_visit_data)
+
+air_visit_data <- air_visit_data %>% 
+                    rename(id = air_store_id)
+glimpse(final)
+
+final2 <- full_join(final,air_visit_data,by=c("id","visit_date"))
+glimpse(final2)
+#colSums(is.na.data.frame(final2))
+```
+
+
+```{r}
+#join on store_id_relation and change names of hpg to air
+store_id_relation <- store_id_relation  %>% 
+                    rename(id = hpg_store_id)
+final3 <- full_join(final2, store_id_relation, by= "id")
+ind <- !is.na(final3[,"air_store_id"])
+final3[ind,"id"] <- as.character(final3[ind,"air_store_id"])
+
+final3 <- final3 %>% select(-air_store_id)
+
+glimpse(final3)
+
+nrow(final3)
+
+write.csv(final3, file="data/complete_data.csv", row.names = FALSE) #run only once and check it's in your data folder
+final_data <- read.csv("data/complete_data.csv")
+nrow(final_data)
+#final_data
+```
+
+
+final3 is the complete data set, it is exported in a csv file!

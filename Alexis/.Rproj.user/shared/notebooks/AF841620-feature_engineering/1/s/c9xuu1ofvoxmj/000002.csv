@@ -1,0 +1,2 @@
+"0","id_relation <- read.csv(""data/store_id_relation.csv"")"
+"0","id_relation"

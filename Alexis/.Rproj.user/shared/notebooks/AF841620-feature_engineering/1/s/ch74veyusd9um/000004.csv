@@ -1,0 +1,2 @@
+"0","hpg_reserve3 <- full_join(hpg_reserve2,date_info, by = c(""visit_date""=""calendar_date""))"
+"0","hpg_reserve3 %>% group_by(hpg_store_id) %>% summarise(total = sum(holiday_flg)) # just a verification, seems good. "

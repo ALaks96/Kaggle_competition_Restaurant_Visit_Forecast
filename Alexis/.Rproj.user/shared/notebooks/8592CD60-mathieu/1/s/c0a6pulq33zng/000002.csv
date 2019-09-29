@@ -1,0 +1,3 @@
+"0","visit_air <- read_csv(""data/air_visit_data.csv"")"
+"2","Erreur : 'data/air_visit_data.csv' does not exist in current working directory ('/Users/laks/Documents/Github/jap_proj/Kaggle_recruit_restau/Kaggle_recruit_restau/Mathieu').
+"

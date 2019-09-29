@@ -1,0 +1,1 @@
+"0","hpg_reserve %>% distinct(hpg_store_id) %>% summarise(count = n()) # There are 13325 different restaurants in the hpg reserve data set, and we only have 4690 restaurants in hpg_store"

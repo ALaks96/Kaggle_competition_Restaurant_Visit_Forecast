@@ -1,0 +1,59 @@
+Package: recruitjap
+Title: Recruit Restaurant Visitor Forecasting
+Version: 0.0.0.9015
+Authors@R: 
+    c(person(given = "Augustin",
+             family = "Baudoin",
+             role = "aut",
+             email = "augustin.baudoin@polytechnique.edu"),
+      person(given = "Louis",
+             family = "Gruand",
+             role = "aut",
+             email = "louis.gruand@polytechnique.edu"),
+      person(given = "Rick",
+             family = "Schneider",
+             role = "aut",
+             email = "rick.schneider@polytechnique.edu"),
+      person(given = "Alexis",
+             family = "Laks",
+             role = c("aut", "cre"),
+             email = "alexis.laks@polytechnique.edu"),
+      person(given = "Mathieu",
+             family = "Deborne",
+             role = "aut",
+             email = "mathieu.deborne@polytechnique.edu"))
+Description: Use reservation and restaurant visit data from
+    Recruit Holding to predict the number of visitors to a restaurant for
+    future dates. This package contains all the necessary work to perform
+    the prediction :exploratory data analysis, prediction model using
+    xgboost and results visualized with our shinyapp.
+License: GPL-3
+Depends: 
+    R (>= 3.5.0)
+Imports: 
+    data.table,
+    dplyr,
+    ggplot2,
+    lubridate,
+    magrittr,
+    mltools,
+    nlme,
+    purrr,
+    RcppRoll,
+    rlang,
+    shiny,
+    shinyTime,
+    stats,
+    stringr,
+    tidyr,
+    xgboost,
+    zoo
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1

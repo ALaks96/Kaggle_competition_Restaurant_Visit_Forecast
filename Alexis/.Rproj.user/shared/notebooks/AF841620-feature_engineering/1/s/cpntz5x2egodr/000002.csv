@@ -1,0 +1,6 @@
+"0","hpg2 <- hpg1 %>% filter(hpg_genre_name != ""NA"") "
+"0","sum(is.na(hpg2)) # 0 -> perfect"
+"1","[1]"
+"1"," 0"
+"1","
+"

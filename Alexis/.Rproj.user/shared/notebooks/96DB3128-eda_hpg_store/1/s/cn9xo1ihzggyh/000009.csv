@@ -1,0 +1,8 @@
+"0","visitors_per_style %>% "
+"0","  ggplot() +"
+"0","  aes(x = reorder(hpg_genre_name, total, FUN = min), y = total, fill = hpg_genre_name) +"
+"0","  geom_col() +"
+"0","  coord_flip() +"
+"0","  theme(title=element_blank(),"
+"0","        axis.title.y=element_blank(),"
+"0","        legend.position = ""none"") "

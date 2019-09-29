@@ -1,0 +1,11 @@
+"0","hpg_store <- read_csv(""data/hpg_store_info.csv"")
+"
+"2","Parsed with column specification:
+cols(
+  hpg_store_id = col_character(),
+  hpg_genre_name = col_character(),
+  hpg_area_name = col_character(),
+  latitude = col_double(),
+  longitude = col_double()
+)
+"

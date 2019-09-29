@@ -1,0 +1,57 @@
+Package: shinyjap
+Title: Recruit Restaurant Visitor Forecasting
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Augustin",
+             family = "Baudoin",
+             role = "aut",
+             email = "augustin.baudoin@polytechnique.edu"),
+      person(given = "Louis",
+             family = "Gruand",
+             role = "aut",
+             email = "louis.gruand@polytechnique.edu"),
+      person(given = "Rick",
+             family = "Schneider",
+             role = "aut",
+             email = "rick.schneider@polytechnique.edu"),
+      person(given = "Alexis",
+             family = "Laks",
+             role = c("aut", "cre"),
+             email = "alexis.laks@polytechnique.edu"),
+      person(given = "Mathieu",
+             family = "Deborne",
+             role = "aut",
+             email = "mathieu.deborne@polytechnique.edu"))
+Description: Shinyapp for kaggle competion Recruit on
+    forecasting visits in restaurants in Japan.
+License: GPL-3
+Depends: 
+    R (>= 3.5.0)
+Imports: 
+    dplyr,
+    DT,
+    ggplot2,
+    glue,
+    leaflet,
+    lubridate,
+    magrittr,
+    mltools,
+    nlme,
+    purrr,
+    RColorBrewer,
+    RcppRoll,
+    recruitjap,
+    rlang,
+    shiny,
+    shinyTime,
+    stats,
+    stringr,
+    timeDate,
+    xgboost,
+    zoo
+Suggests: 
+    knitr,
+    rmarkdown
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1

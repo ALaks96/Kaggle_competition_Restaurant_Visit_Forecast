@@ -1,0 +1,3 @@
+"0","hpg_reserve <- hpg_reserve %>% "
+"0","                group_by(hpg_store_id) %>% "
+"0","                summarise(total = n())"

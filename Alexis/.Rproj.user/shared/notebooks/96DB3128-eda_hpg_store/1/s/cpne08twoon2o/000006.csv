@@ -1,0 +1,3 @@
+"0","hpg <- left_join(hpg_reserve,hpg_store, by = ""hpg_store_id"")
+"
+"2","Column `hpg_store_id` joining factor and character vector, coercing into character vector"
